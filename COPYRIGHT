@@ -1,0 +1,46 @@
+xorshift is a derivative work originating from:
+http://xoroshiro.di.unimi.it/
+
+- splitmix64 (http://xoroshiro.di.unimi.it/splitmix64.c) 
+"""
+  Written in 2015 by Sebastiano Vigna (vigna@acm.org)
+
+  To the extent possible under law, the author has dedicated all copyright
+  and related and neighboring rights to this software to the public domain
+  worldwide. This software is distributed without any warranty.
+
+  See <http://creativecommons.org/publicdomain/zero/1.0/>. 
+"""
+
+- xoroshiro128+ (http://xoroshiro.di.unimi.it/xoroshiro128plus.c)
+"""
+  Written in 2016 by David Blackman and Sebastiano Vigna (vigna@acm.org)
+  
+  To the extent possible under law, the author has dedicated all copyright
+  and related and neighboring rights to this software to the public domain
+  worldwide. This software is distributed without any warranty.
+  
+  See <http://creativecommons.org/publicdomain/zero/1.0/>.
+"""
+
+- xorshift128+ (http://xoroshiro.di.unimi.it/xorshift128plus.c)
+"""
+  Written in 2014-2016 by Sebastiano Vigna (vigna@acm.org)
+  
+  To the extent possible under law, the author has dedicated all copyright
+  and related and neighboring rights to this software to the public domain
+  worldwide. This software is distributed without any warranty.
+  
+  See <http://creativecommons.org/publicdomain/zero/1.0/>.
+"""
+
+- xorshift1024* (http://xoroshiro.di.unimi.it/xorshift1024star.c)
+"""
+  Written in 2014 by Sebastiano Vigna (vigna@acm.org)
+  
+  To the extent possible under law, the author has dedicated all copyright
+  and related and neighboring rights to this software to the public domain
+  worldwide. This software is distributed without any warranty.
+  
+  See <http://creativecommons.org/publicdomain/zero/1.0/>.
+"""
