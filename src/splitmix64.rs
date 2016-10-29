@@ -6,13 +6,39 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+//! The SplitMix64 random number generator.
+
 use std::num::Wrapping as w;
 use rand::{Rand, Rng, SeedableRng};
 
+/// A random number generator that uses the splitmix64 algorithm [1].
+///
+/// # Description
+/// Quoted from [1].
+///
+/// This is a fixed-increment version of Java 8's SplittableRandom
+/// generator [2] and [3].
+///
+/// It is a very fast generator passing BigCrush, and it can be useful if
+/// for some reason you absolutely want 64 bits of state; otherwise, we
+/// rather suggest to use a xoroshiro128+ (for moderately parallel
+/// computations) or xorshift1024* (for massively parallel computations)
+/// generator.
+///
+/// [1]: Sebastiano Vigna, [splitmix64]
+/// (http://xoroshiro.di.unimi.it/splitmix64.c)
+///
+/// [2]: Guy L. Steele, Jr., Doug Lea, and Christine H. Flood. 2014.
+/// [*Fast splittable pseudorandom number generators*]
+/// (http://dx.doi.org/10.1145/2714064.2660195)
+///
+/// [3]: JavaSE, [SplittableRandom]
+/// (http://docs.oracle.com/javase/8/docs/api/java/util/SplittableRandom.html)
 #[derive(Copy, Clone)]
 pub struct SplitMix64(u64);
 
 impl Rng for SplitMix64 {
+    #[inline]
     fn next_u32(&mut self) -> u32 {
         self.next_u64() as u32
     }

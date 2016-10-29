@@ -6,12 +6,42 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+//! The Xorshift128+ random number generator.
+
 use std::num::Wrapping as w;
 use rand::{Rand, Rng, SeedableRng};
 use RngJump;
 
 const STATE_SIZE: usize = 2;
 
+/// A random number generator that uses the xorshift128+ algorithm [1].
+///
+/// # Description
+/// Quoted from [1].
+///
+/// This generator has been replaced by xoroshiro128plus, which is
+/// significantly faster and has better statistical properties.
+///
+/// It might be nonetheless useful for languages in which low-level rotate
+/// instructions are not available. Due to the relatively short period it
+/// is acceptable only for applications with a mild amount of parallelism;
+/// otherwise, use a xorshift1024* generator.
+///
+/// Note that the lowest bit of this generator is an LSFR, and thus it is
+/// slightly less random than the other bits. We suggest to use a sign test
+/// to extract a random Boolean value.
+///
+/// The state must be seeded so that it is not everywhere zero. If you have
+/// a 64-bit seed, we suggest to seed a splitmix64 generator and use its
+/// output to fill s.
+///
+/// [1]: Sebastiano Vigna, [xorshift128+]
+/// (http://xoroshiro.di.unimi.it/xorshift128plus.c)
+///
+/// # Parallelism
+/// The RngJump implementation is equivalent to 2^64 calls to next_u64().
+/// Used to generate 2^64 non-overlapping subsequences for parallel
+/// computations.
 #[derive(Copy, Clone)]
 pub struct Xorshift128([u64; 2]);
 
@@ -44,6 +74,8 @@ impl<'a> SeedableRng<&'a [u64]> for Xorshift128 {
         self.0[1] = seed[1];
     }
 
+    // Create a Xorshift128 generator from a seeded state u64 array.
+    // Seed must have at least 2 elements.
     fn from_seed(seed: &'a [u64]) -> Xorshift128 {
         let mut rng = EMPTY;
         rng.reseed(seed);
@@ -62,6 +94,9 @@ impl Rand for Xorshift128 {
 }
 
 impl RngJump for Xorshift128 {
+    // Jump the state of the generator. Equivalent to 2^64 calls to next_u64().
+    // Used to generate 2^64 non-overlapping subsequences for parallel
+    // computations.
     fn jump(&mut self, count: usize) {
         for _ in 0..count {
             let mut s0: u64 = 0;

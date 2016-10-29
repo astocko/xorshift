@@ -6,6 +6,21 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+//! Implementation of the high performance xoroshiro128+, xorshift128+, xorshift1024*, and splitmix64 pseudo random number generators.
+//!
+//! Implements the `Rand`, `Rng`, and `SeedableRng` traits from the [rand crate](https://crates.io/crates/rand).
+//!
+//! # Usage
+//! ```toml
+//! [dependencies]
+//! xorshift = "0.1"
+//! ```
+//! ```rust
+//! extern crate xorshift;
+//! ```
+//! # Examples
+//! 
+
 extern crate rand;
 
 pub mod splitmix64;
@@ -20,7 +35,12 @@ pub use xorshift1024::Xorshift1024;
 
 pub use rand::{Rand, Rng, SeedableRng};
 
+/// A random number generator with jumpable state.
 pub trait RngJump {
+    /// Forward the state of the random number generator.
+    ///
+    /// When using the random number generator for parallel computations,
+    /// jump the state to avoid biased generation.
     fn jump(&mut self, count: usize);
 }
 

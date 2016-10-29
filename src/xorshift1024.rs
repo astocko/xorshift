@@ -6,12 +6,37 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+//! The Xorshift1024* random number generator.
+
 use std::num::Wrapping as w;
 use rand::{Rand, Rng, SeedableRng};
 use RngJump;
 
 const STATE_SIZE: usize = 16;
 
+/// A random number generator that uses the xorshift1024* algorithm [1].
+///
+/// # Description
+/// Quoted from [1].
+///
+/// This is a fast, top-quality generator. If 1024 bits of state are too
+/// much, try a xoroshiro128+ generator.
+///
+/// Note that the three lowest bits of this generator are LSFRs, and thus
+/// they are slightly less random than the other bits. We suggest to use a
+/// sign test to extract a random Boolean value.
+///
+/// The state must be seeded so that it is not everywhere zero. If you have
+/// a 64-bit seed, we suggest to seed a splitmix64 generator and use its
+/// output to fill s.
+///
+/// [1]: Sebastiano Vigna, [xorshift1024*]
+/// (http://xoroshiro.di.unimi.it/xorshift1024star.c)
+///
+/// # Parallelism
+/// The RngJump implementation is equivalent to 2^512 calls to next_u64().
+/// Used to generate 2^512 non-overlapping subsequences for parallel
+/// computations.
 #[derive(Copy, Clone)]
 pub struct Xorshift1024 {
     state: [u64; 16],

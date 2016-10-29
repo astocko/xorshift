@@ -1,6 +1,6 @@
 # xorshift
 
-Rust crate implementing the splitmix64, xoroshiro128+, xorshift128+, and xorshift1024* PRNGs. Derived from their respective public-domain C implementations.
+Rust crate implementing the high performance splitmix64, xoroshiro128+, xorshift128+, and xorshift1024* PRNGs. Derived from their respective public-domain C implementations.
 
 See [COPYRIGHT](COPYRIGHT) for details.
 
