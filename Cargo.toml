@@ -1,0 +1,14 @@
+[package]
+name = "xorshift"
+version = "0.1.0"
+authors = ["Alexander Stocko <as@coder.gg>"]
+license = "MIT/Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/astocko/xorshift1024"
+homepage = "https://github.com/astocko/xorshift1024"
+description = """
+Implementation of the [xoroshiro128+, xorshift128+, xorshift1024*, and splitmix64](http://xoroshiro.di.unimi.it/) PRNGs.
+"""
+
+[dependencies]
+rand = "^0.3.14"
