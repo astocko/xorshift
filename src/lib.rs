@@ -13,6 +13,12 @@ pub mod xoroshiro128;
 pub mod xorshift128;
 pub mod xorshift1024;
 
+pub use splitmix64::SplitMix64;
+pub use xoroshiro128::Xoroshiro128;
+pub use xorshift128::Xorshift128;
+pub use xorshift1024::Xorshift1024;
+
+pub use rand::{Rand, Rng, SeedableRng};
 
 pub trait RngJump {
     fn jump(&mut self, count: usize);

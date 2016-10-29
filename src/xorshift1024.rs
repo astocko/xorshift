@@ -88,16 +88,13 @@ impl Rand for Xorshift1024 {
 
 impl RngJump for Xorshift1024 {
     fn jump(&mut self, count: usize) {
-        let mut s = self.state;
-        let p = self.p;
-
         for _ in 0..count {
             let mut t: [u64; 16] = [0; 16];
             for i in 0..JUMP.len() {
                 for b in 0..64 {
                     if (JUMP[i] & 1 << b) != 0 {
                         for j in 0..16 {
-                            t[j] ^= s[(j + p) & 15];
+                            t[j] ^= self.state[(j + self.p) & 15];
                         }
                     }
                     self.next_u64();
@@ -105,7 +102,7 @@ impl RngJump for Xorshift1024 {
             }
 
             for j in 0..16 {
-                s[(j + p) & 15] = t[j];
+                self.state[(j + self.p) & 15] = t[j];
             }
         }
     }
