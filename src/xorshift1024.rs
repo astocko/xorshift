@@ -9,7 +9,9 @@
 //! The Xorshift1024* random number generator.
 
 use std::num::Wrapping as w;
+
 use rand::{Rand, Rng, SeedableRng};
+
 use RngJump;
 
 const STATE_SIZE: usize = 16;
@@ -37,7 +39,7 @@ const STATE_SIZE: usize = 16;
 /// The RngJump implementation is equivalent to 2^512 calls to next_u64().
 /// Used to generate 2^512 non-overlapping subsequences for parallel
 /// computations.
-#[derive(Copy, Clone)]
+#[derive(Clone, Copy)]
 pub struct Xorshift1024 {
     state: [u64; 16],
     p: usize,
@@ -65,7 +67,9 @@ static JUMP: [u64; 16] = [0x84242f96eca9c41d,
                           0x284600e3f30e38c3];
 
 
+
 impl Rng for Xorshift1024 {
+    #[inline]
     fn next_u32(&mut self) -> u32 {
         self.next_u64() as u32
     }

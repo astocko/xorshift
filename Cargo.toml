@@ -1,11 +1,11 @@
 [package]
 name = "xorshift"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Alexander Stocko <as@coder.gg>"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/astocko/xorshift"
-documentation = "http://docs.coder.gg/xorshift"
+documentation = "http://docs.coder.gg/xorshift/xorshift"
 homepage = "https://github.com/astocko/xorshift"
 description = """
 Implementation of the high performance xoroshiro128+, xorshift128+, xorshift1024*, and splitmix64 pseudo random number generators.
@@ -14,4 +14,8 @@ keywords = ["rng", "random", "xorshift", "xoroshiro", "splitmix"]
 
 
 [dependencies]
+lazy_static = "0.2"
 rand = "0.3"
+
+[dev-dependencies]
+time = "0.1"
