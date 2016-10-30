@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Xorshift1024","A random number generator that uses the xorshift1024* algorithm [1]."]]});
