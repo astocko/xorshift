@@ -2,8 +2,7 @@
 
 Rust crate implementing the high performance splitmix64, xoroshiro128+, xorshift128+, and xorshift1024* PRNGs. Derived from their respective public-domain C implementations. See [COPYRIGHT](COPYRIGHT) for details.
 
-[![Build Status](https://travis-ci.org/astocko/xorshift.svg?branch=master)](https://travis-ci.org/astocko/xorshift.svg?branch=master)
-
+[![Build Status](https://travis-ci.org/astocko/xorshift.svg?branch=master)](https://travis-ci.org/astocko/xorshift)
 
 [Documentation](https://docs.coder.gg/xorshift/xorshift)
 
