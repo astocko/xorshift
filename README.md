@@ -4,7 +4,9 @@ Rust crate implementing the high performance splitmix64, xoroshiro128+, xorshift
 
 [![Build Status](https://travis-ci.org/astocko/xorshift.svg?branch=master)](https://travis-ci.org/astocko/xorshift)
 
-[![crates.io page](https://img.shields.io/crates/v/xorshift.svg)](https://crates.io/crates/xorshift) [Documentation](https://docs.coder.gg/xorshift/xorshift)
+[![crates.io page](https://img.shields.io/crates/v/xorshift.svg)](https://crates.io/crates/xorshift)
+
+[Documentation](https://docs.coder.gg/xorshift/xorshift)
 
 
 # Algorithms
