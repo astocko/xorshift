@@ -115,3 +115,5 @@ fn main() {
 }
 ```
 
+# License
+Written by [Alexander Stocko] and released in the Public Domain using the [Creative Commons Zero Declaration][cc0].
