@@ -116,4 +116,4 @@ fn main() {
 ```
 
 # License
-Written by [Alexander Stocko] and released in the Public Domain using the [Creative Commons Zero Declaration][cc0].
+Written by [Alexander Stocko](https://github.com/astocko) and released in the Public Domain using the [Creative Commons Zero Declaration](https://creativecommons.org/publicdomain/zero/1.0/).
