@@ -9,7 +9,9 @@
 //! The Xoroshiro128+ random number generator.
 
 use std::num::Wrapping as w;
+
 use rand::{Rand, Rng, SeedableRng};
+
 use RngJump;
 
 const STATE_SIZE: usize = 2;
@@ -20,11 +22,11 @@ const STATE_SIZE: usize = 2;
 /// Quoted from [1].
 ///
 /// This is the successor to xorshift128+. It is the fastest full-period
-/// generator passing BigCrush without systematic failures, but due to the
+/// generator passing `BigCrush` without systematic failures, but due to the
 /// relatively short period it is acceptable only for applications with a
 /// mild amount of parallelism; otherwise, use a xorshift1024* generator.
 ///
-/// Beside passing BigCrush, this generator passes the PractRand test suite
+/// Beside passing `BigCrush`, this generator passes the `PractRand` test suite
 /// up to (and included) 16TB, with the exception of binary rank tests,
 /// which fail due to the lowest bit being an LFSR; all other bits pass all
 /// tests. We suggest to use a sign test to extract a random Boolean value.
@@ -42,7 +44,7 @@ const STATE_SIZE: usize = 2;
 /// (http://xoroshiro.di.unimi.it/xoroshiro128plus.c)
 ///
 /// # Parallelism
-/// The RngJump implementation is equivalent to 2^64 calls to next_u64().
+/// The `RngJump` implementation is equivalent to 2^64 calls to `next_u64`().
 /// Used to generate 2^64 non-overlapping subsequences for parallel
 /// computations.
 #[derive(Copy, Clone)]
@@ -94,7 +96,7 @@ impl<'a> SeedableRng<&'a [u64]> for Xoroshiro128 {
 impl Rand for Xoroshiro128 {
     fn rand<R: Rng>(other: &mut R) -> Xoroshiro128 {
         let mut key: [u64; STATE_SIZE] = [0; STATE_SIZE];
-        for word in key.iter_mut() {
+        for word in &mut key {
             *word = other.gen();
         }
         SeedableRng::from_seed(&key[..])
@@ -107,9 +109,9 @@ impl RngJump for Xoroshiro128 {
             let mut s0: u64 = 0;
             let mut s1: u64 = 0;
 
-            for i in 0..JUMP.len() {
+            for i in &JUMP {
                 for b in 0..64 {
-                    if (JUMP[i] & 1 << b) != 0 {
+                    if (i & 1 << b) != 0 {
                         s0 ^= self.0[0];
                         s1 ^= self.0[1];
                     }

@@ -6,7 +6,7 @@
 //
 // See <LICENSE or http://creativecommons.org/publicdomain/zero/1.0/>
 
-//! The SplitMix64 random number generator.
+//! The `SplitMix64` random number generator.
 
 use std::num::Wrapping as w;
 use rand::{Rand, Rng, SeedableRng};
@@ -16,10 +16,10 @@ use rand::{Rand, Rng, SeedableRng};
 /// # Description
 /// Quoted from [1].
 ///
-/// This is a fixed-increment version of Java 8's SplittableRandom
+/// This is a fixed-increment version of Java 8's `SplittableRandom`
 /// generator [2] and [3].
 ///
-/// It is a very fast generator passing BigCrush, and it can be useful if
+/// It is a very fast generator passing `BigCrush`, and it can be useful if
 /// for some reason you absolutely want 64 bits of state; otherwise, we
 /// rather suggest to use a xoroshiro128+ (for moderately parallel
 /// computations) or xorshift1024* (for massively parallel computations)

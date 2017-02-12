@@ -49,6 +49,10 @@ fn main() {
     // Generate 20 random u32s
     let vals = rng.gen_iter::<u32>().take(20).collect::<Vec<u32>>();
     println!("Xorshift1024* random u32: {:?}", vals);
+    
+    // Generate 50 random u64s
+    let vals = rng.gen_iter::<u64>().take(50).collect::<Vec<u64>>();
+    println!("Xorshift1024* random u64: {:?}", vals);
 }
 
 ```

@@ -9,7 +9,9 @@
 //! The Xorshift128+ random number generator.
 
 use std::num::Wrapping as w;
+
 use rand::{Rand, Rng, SeedableRng};
+
 use RngJump;
 
 const STATE_SIZE: usize = 2;
@@ -39,7 +41,7 @@ const STATE_SIZE: usize = 2;
 /// (http://xoroshiro.di.unimi.it/xorshift128plus.c)
 ///
 /// # Parallelism
-/// The RngJump implementation is equivalent to 2^64 calls to next_u64().
+/// The `RngJump` implementation is equivalent to 2^64 calls to `next_u64`().
 /// Used to generate 2^64 non-overlapping subsequences for parallel
 /// computations.
 #[derive(Copy, Clone)]
@@ -86,7 +88,7 @@ impl<'a> SeedableRng<&'a [u64]> for Xorshift128 {
 impl Rand for Xorshift128 {
     fn rand<R: Rng>(other: &mut R) -> Xorshift128 {
         let mut key: [u64; STATE_SIZE] = [0; STATE_SIZE];
-        for word in key.iter_mut() {
+        for word in &mut key {
             *word = other.gen();
         }
         SeedableRng::from_seed(&key[..])
@@ -102,9 +104,9 @@ impl RngJump for Xorshift128 {
             let mut s0: u64 = 0;
             let mut s1: u64 = 0;
 
-            for i in 0..JUMP.len() {
+            for i in &JUMP {
                 for b in 0..64 {
-                    if (JUMP[i] & 1 << b) != 0 {
+                    if (i & 1 << b) != 0 {
                         s0 ^= self.0[0];
                         s1 ^= self.0[1];
                     }

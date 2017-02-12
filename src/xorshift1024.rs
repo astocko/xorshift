@@ -8,6 +8,8 @@
 
 //! The Xorshift1024* random number generator.
 
+#![cfg_attr(feature = "cargo-clippy", allow(needless_range_loop))]
+
 use std::num::Wrapping as w;
 
 use rand::{Rand, Rng, SeedableRng};
@@ -36,7 +38,7 @@ const STATE_SIZE: usize = 16;
 /// (http://xoroshiro.di.unimi.it/xorshift1024star.c)
 ///
 /// # Parallelism
-/// The RngJump implementation is equivalent to 2^512 calls to next_u64().
+/// The `RngJump` implementation is equivalent to 2^512 calls to `next_u64`().
 /// Used to generate 2^512 non-overlapping subsequences for parallel
 /// computations.
 #[derive(Clone, Copy)]
@@ -108,7 +110,7 @@ impl<'a> SeedableRng<&'a [u64]> for Xorshift1024 {
 impl Rand for Xorshift1024 {
     fn rand<R: Rng>(other: &mut R) -> Xorshift1024 {
         let mut key: [u64; STATE_SIZE] = [0; STATE_SIZE];
-        for word in key.iter_mut() {
+        for word in &mut key {
             *word = other.gen();
         }
         SeedableRng::from_seed(&key[..])
@@ -119,11 +121,11 @@ impl RngJump for Xorshift1024 {
     fn jump(&mut self, count: usize) {
         for _ in 0..count {
             let mut t: [u64; 16] = [0; 16];
-            for i in 0..JUMP.len() {
+            for i in &JUMP {
                 for b in 0..64 {
-                    if (JUMP[i] & 1 << b) != 0 {
-                        for j in 0..16 {
-                            t[j] ^= self.state[(j + self.p) & 15];
+                    if (i & 1 << b) != 0 {
+                        for (j, t_elem) in t.iter_mut().enumerate().take(16) {
+                            *t_elem ^= self.state[(j + self.p) & 15];
                         }
                     }
                     self.next_u64();
